@@ -203,8 +203,8 @@ kind: System
 metadata:
   name: rx-kafka-profiles
   tags:
-    - create profile
-    - update profile
+    - create-profile
+    - update-profile
 spec:
   owner: "Integrationws"
 ---
@@ -214,7 +214,7 @@ metadata:
   name: rx-integration-kafka-stream
   description: "kafka update profile"
   tags:
-    - update profile
+    - update-profile
   links:
     - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
       title: kafka topic to create profile
