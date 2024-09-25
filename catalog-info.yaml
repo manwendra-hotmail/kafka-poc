@@ -185,7 +185,7 @@ metadata:
   name: rx-graphql
   description: “backend for webapp”
   links:
-    - url: 'https://commercial-platform-dev-commercial-platform.apps.clstr02.dev.rx.int/graphql'
+    - url: 'https://retailmsvc-retail-store.apps.66a64ff6d70fa4001ee0caae.ocp.techzone.ibm.com/'
       title: graphql link
       icon: web
 spec:
