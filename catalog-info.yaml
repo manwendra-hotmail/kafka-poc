@@ -179,25 +179,25 @@ spec:
   providesApis:
     - rx-graphql
 ---
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: rx-graphql
-  description: “backend for webapp”
-  links:
-    - url: 'https://retailmsvc-retail-store.apps.66a64ff6d70fa4001ee0caae.ocp.techzone.ibm.com/'
-      title: graphql link
-      icon: web
-spec:
-  type: graphql
-  lifecycle: nonproduction
-  owner: “DigitalBuildws"
-  system: rx-digital-build
+#apiVersion: backstage.io/v1alpha1
+#kind: API
+#metadata:
+#  name: rx-graphql
+#  description: “backend for webapp”
+#  links:
+#    - url: 'https://retailmsvc-retail-store.apps.66a64ff6d70fa4001ee0caae.ocp.techzone.ibm.com/'
+#      title: graphql link
+#      icon: web
+#spec:
+#  type: graphql
+#  lifecycle: nonproduction
+#  owner: “DigitalBuildws"
+#  system: rx-digital-build
   #definition:
     #$text: ./openapi-create.yaml
-  definition:
-    $text: https://commercial-platform-dev-commercial-platform.apps.clstr02.dev.rx.int/graphql
----
+#  definition:
+#    $text: https://commercial-platform-dev-commercial-platform.apps.clstr02.dev.rx.int/graphql
+#---
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
