@@ -1,0 +1,270 @@
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-profile-services
+  description: "Skeleton of Profile Services"
+  annotations:
+    #argocd/app-selector: rht-gitops.com/janus-argocd=rx-digital-build-bootstrap
+    backstage.io/kubernetes-id: rx-profile-services
+    #janus-idp.io/tekton: rx-rx-profile-services
+    backstage.io/source-location: url:https://github.com/IntegrationWS/rhdevhub.git
+    backstage.io/techdocs-ref: url:https://github.com/IntegrationWS/rhdevhub.git
+    #gitlab.com/project-slug: development/rx-digital-build
+    #quay.io/repository-slug: "quayadmin/rx-digital-build"
+  tags:
+    - create-profile
+    - retreive-profile
+    - guest-360
+    - crm-api
+    - cdp-api
+  links:
+    - url: 'http://10.3.42.77/createprofile/'
+      title: Guest 360 Create profile
+      icon: web
+    - url: 'http://10.3.42.77/searchprofile/'
+      title: Guest 360 Create profile)
+      icon: web
+    - url: https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/
+      title: Event Streams
+      icon: web
+    - url: https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/design/integrations/cp4i/app-des/home
+      title: APP Connect Design
+      icon: web
+    - url: https://datapower-cp4i.apps.clstr02.dev.rx.int/dp/login.xml
+      title: Data Power
+      icon: web
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "Integrationws"
+  system: rx-profile-services
+  dependsOn:
+    - resource:default/artists-db
+  dependencyOf:
+    - component:default/artist-web-lookup
+  providesApis:
+    - rx-create-profile-api
+    - rx-update-profile-api
+    - rx-retreive-profile-api
+  consumesApis:
+    - rx-appconnect-orchestrator
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-appconnect-orchestrator
+  description: "Appconnect backend orchestrator"
+  tags:
+    - appconnect
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "Integrationws"
+  system: rx-appconnect-orchestrator
+  providesApis:
+    - rx-appconnect-orchestrator
+  consumesApis:
+    - rx-create-profile-api
+    - rx-update-profile-api
+    - rx-retreive-profile-api
+    - rx-kafka-create-profile
+    - rx-kafka-update-profile
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-profile-services
+  tags:
+    - rx-profile-services
+    - travel
+spec:
+  owner: "Integrationws"
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-appconnect-orchestrator
+  tags:
+    - appconnect
+    - travel
+spec:
+  owner: "Integrationws"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-create-profile-api
+  description: “Creation of the Profile”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-profile-services
+  definition:
+    $text: ./openapi-create.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-appconnect-orchestrator
+  description: “appconnect orchestrator”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-appconnect-orchestrator
+  definition:
+    $text: ./openapi-appconnect-orchestrator.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-update-profile-api
+  description: “Update of the Profile”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-profile-services
+  definition:
+    $text: ./openapi.update.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-retreive-profile-api
+  description: “Retreive of the Profile”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-profile-services
+  definition:
+    $text: ./openapi.retreive.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-digital-build
+  tags:
+    - digital build
+    - signup
+spec:
+  owner: "DigitalBuildWS"
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-digital-build-webapp
+  description: "web app digital build"
+  tags:
+    - sign-up
+    - web-app
+  links:
+    - url: 'https://commercial-webapp-dev-commercial-webapp.apps.clstr02.dev.rx.int/'
+      title: Welcome to rx web app
+      icon: web
+spec:
+  type: website
+  lifecycle: nonproduction
+  owner: "DigitalBuildws"
+  system: rx-digital-builds
+  dependsOn:
+    - component:rx-profile-services
+  consumesApis:
+    - rx-create-profile-api
+    - rx-update-profile-api
+    - rx-retreive-profile-api
+  providesApis:
+    - rx-graphql
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-graphql
+  description: “backend for webapp”
+  links:
+    - url: 'https://commercial-platform-dev-commercial-platform.apps.clstr02.dev.rx.int/graphql'
+      title: graphql link
+      icon: web
+spec:
+  type: graphql
+  lifecycle: nonproduction
+  owner: “DigitalBuildws"
+  system: rx-digital-build
+  #definition:
+    #$text: ./openapi-create.yaml
+  definition:
+    $text: https://commercial-platform-dev-commercial-platform.apps.clstr02.dev.rx.int/graphql
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-kafka-profiles
+  tags:
+    - create profile
+    - update profile
+spec:
+  owner: "Integrationws"
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-integration-kafka-stream
+  description: "kafka update profile"
+  tags:
+    - update profile
+  links:
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
+      title: kafka topic to create profile
+      icon: web
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.UPDATEPROFILE.PROVIDER/messages'
+      title: kafka topic to update profile
+      icon: web
+spec:
+  type: website
+  lifecycle: nonproduction
+  system: rx-kafka-profiles
+  owner: "Integrationws"
+  dependsOn:
+    - component:rx-profile-services
+  consumesApis:
+    - rx-kafka-adapter
+  providesApis:
+    - rx-kafka-create-profile
+    - rx-kafka-update-profile
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-kafka-create-profile
+  description: “api for create profile in kafka”
+  links:
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
+      title: kafka create profile link
+      icon: web
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-kafka-profiles
+  definition:
+    $text: ./openapi-create.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-kafka-update-profile
+  description: “api for update profile in kafka”
+  links:
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.UPDATEPROFILE.PROVIDER/messages'
+      title: kafka update profile link
+      icon: web
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-kafka-profiles
+  definition:
+    $text: ./openapi-create.yaml

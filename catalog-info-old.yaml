@@ -1,0 +1,49 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-digital-build
+  description: "Inventory microservice for rxdigitalbuild"
+  annotations:
+    #argocd/app-selector: rht-gitops.com/janus-argocd=rx-digital-build-bootstrap
+    backstage.io/kubernetes-id: rx-digital-build
+    #janus-idp.io/tekton: rx-digital-build
+    backstage.io/source-location: url:https://github.com/IntegrationWS/rhdevhub.git
+    backstage.io/techdocs-ref: url:https://github.com/IntegrationWS/rhdevhub.git
+    #gitlab.com/project-slug: development/rx-digital-build
+    quay.io/repository-slug: "quayadmin/rx-digital-build"
+  tags:
+    - java
+    - quarkus
+    - maven
+    - demo
+    - coolstore
+  links:
+    - url: https://console-openshift-console.apps.clstr02.dev.rx.int/k8s/ns/dev-commercial-webapp/
+      title: OpenShift Pipelines
+      icon: web
+    - url: https://redhat-developer-hub-rhhub.apps.clstr02.dev.rx.int/#https://github.com/IntegrationWS/rhdevhub.git
+      title: OpenShift Dev Spaces (VS Code)
+      icon: web
+    - url: https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/
+      title: Event Streams
+      icon: web
+    - url: https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/design/integrations/cp4i/app-des/home
+      title: APP Connect Design
+      icon: web
+spec:
+  type: service
+  lifecycle: production
+  owner: "user1"
+  system: rx-digital-build
+  providesApis:
+    - rx-digital-build-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-digital-build
+  tags:
+    - rx-digital-build
+    - travel
+spec:
+  owner: "user1"

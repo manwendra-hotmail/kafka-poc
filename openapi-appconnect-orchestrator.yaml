@@ -1,0 +1,9 @@
+openapi: 3.0.1
+info:
+    title: ‘app connect orchestration’
+    description: ‘orchestrate the create, retreive and update profile for guest 360’
+    version: latest
+externalDocs:
+    url: ’https://console-openshift-console.apps.clstr02.dev.rx.int/k8s/ns/cp4i/deployments/is-profile-services-main-ir'
+servers:
+    - url: ’https://console-openshift-console.apps.clstr02.dev.rx.int/k8s/ns/cp4i/deployments/is-profile-services-main-ir'

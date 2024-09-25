@@ -1,0 +1,177 @@
+openapi: 3.0.1
+info:
+    title: ‘Profile Create API’
+    description: ‘Allows you to create profiles on Guest 360’
+    version: latest
+externalDocs:
+    url: ’https://apic-gw-gateway-cp4i.apps.clstr02.dev.rx.int/rx-commercial/commercial/profileservices/create'
+servers:
+    - url: https://customgw-cp4i.apps.clstr02.dev.rx.int/rx-commercial/commercial/profileservices/create
+paths:
+    /create:
+        post:
+            operationId: guestCreateProfile
+            responses:
+                '200':
+                    description: 'The operation was successful.'
+                    schema: {$ref: '#/definitions/rxResBody'}
+                '400':
+                    description: 'Bad Request.'
+                    schema: {$ref: '#/definitions/rxResFail'}
+                '422':
+                    description: 'Unprocessable Entity.'
+                    schema: {$ref: '#/definitions/rxResFail'}
+                '500':
+                    description: 'Internal Server Error.'
+                    schema: {$ref: '#/definitions/rxResFail'}
+            consumes:
+                - application/json
+            produces:
+                - application/json
+            description: 'Create a Profile by calling API connect to cal profile360 service'
+            parameters:
+                -
+                    name: body
+                    in: body
+                    schema: {$ref: '#/definitions/requestBody'}
+                    description: 'The request body for the operation'
+                    required: true
+basePath: /profileservices/guestcreateprofile
+definitions:
+    requestBody:
+        type: object
+        additionalProperties: false
+        required:
+            - rxReqHeader
+            - rxReqData
+        properties:
+            rxReqHeader:
+                $ref: '#/definitions/rxReqHeader'
+            rxReqData:
+                type: object
+                additionalProperties: false
+                properties:
+                    customerID: {type: string}
+                    profileStatus: {type: string, enum: [active, inactive]}
+                    preferToShareEmergencyContact: {type: boolean}
+                    profileImageReference: {type: string}
+                    customerDetails: {type: object, additionalProperties: false, properties: {firstName: {type: string}, middleName: {type: string}, lastName: {type: string}, preferredName: {type: string}, title: {type: string}, dateOfBirth: {type: string, pattern: '^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'}, gender: {type: string}, email: {type: string, pattern: '^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'}, registeredMobile: {type: string}, registeredcountryCode: {type: string}}}
+                    guestDocuments: {type: array, items: {type: object, additionalProperties: false, properties: {documentNumber: {type: string}, typeOfDocument: {type: string}, nationality: {type: string}, issuingCountry: {type: string}, placeOfIssue: {type: string}, issueDate: {type: string, pattern: '^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'}, expiryDate: {type: string, pattern: '^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'}}}}
+                    guestAddresses: {type: array, items: {type: object, additionalProperties: false, properties: {addressType: {type: string}, addressLine1: {type: string}, addressLine2: {type: string}, addressLine3: {type: string}, street: {type: string}, state: {type: string}, zipCode: {type: string}, city: {type: string}, country: {type: string}}}}
+                    guestContacts: {type: array, items: {type: object, additionalProperties: false, properties: {contactType: {type: string}, contactDetail: {type: string}, contactExtension: {type: string}, countryCode: {type: string}}}}
+                    communicationPreferences: {type: array, items: {type: object, additionalProperties: false, properties: {channel: {type: string}, value: {type: boolean}}}}
+                    guestPreferences: {type: array, items: {type: object, additionalProperties: false, properties: {preferenceType: {type: string}, preferenceValue: {type: array, items: {type: string}}}}}
+                    companions: {type: array, items: {type: object, additionalProperties: false, properties: {companionTitle: {type: string}, companionFirstName: {type: string}, companionLastName: {type: string}, companionDOB: {type: string}, companionGender: {type: string}, companionEmail: {type: string, pattern: '^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'}, companionPhone: {type: string}, companionGroup: {type: string}, companionDocuments: {type: array, items: {type: object, additionalProperties: false, properties: {documentNumber: {type: string}, typeOfDocument: {type: string}, nationality: {type: string}, issuingCountry: {type: string}, placeOfIssue: {type: string}, issueDate: {type: string, pattern: '^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'}, expiryDate: {type: string, pattern: '^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'}}}}}}}
+                    companionGroups: {type: array, items: {type: string}}
+                    favoriteDestinations: {type: array, items: {type: string}}
+                    homeAirports: {type: array, items: {type: string}}
+                    consents: {type: array, items: {type: object, additionalProperties: false, properties: {consentType: {type: string}, channel: {type: array, items: {type: string}}}}}
+                    favoriteTrip: {type: array, items: {type: object, additionalProperties: false, properties: {favoriteTripName: {type: string}, origin: {type: string}, destination: {type: string}, departureDate: {type: string, pattern: '^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'}, returnDate: {type: string, pattern: '^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'}, numberOfTravellers: {type: string}, companions: {type: array, items: {type: object, additionalProperties: false, properties: {companionTitle: {type: string}, companionFirstName: {type: string}, companionLastName: {type: string}, companionDOB: {type: string}, companionGender: {type: string}, companionEmail: {type: string, pattern: '^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'}, companionPhone: {type: string}, companionGroup: {type: string}}}}}}}
+                    emergencyContact: {type: object, additionalProperties: false, properties: {countryCode: {type: string}, email: {type: string, pattern: '^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'}, firstName: {type: string}, lastName: {type: string}, middleName: {type: string}, phone: {type: string}, relationship: {type: string}}}
+                required:
+                    - customerID
+    rxReqHeader:
+        type: object
+        additionalProperties: false
+        properties:
+            partnerId:
+                type: string
+            appId:
+                type: string
+            channelId:
+                type: string
+            airlineId:
+                type: string
+            messageData:
+                type: object
+                additionalProperties: false
+                properties:
+                    timestamp: {type: string, pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$'}
+                required:
+                    - timestamp
+            securityContext:
+                type: object
+                additionalProperties: false
+                properties:
+                    ipAddress: {type: string}
+                    ipType: {type: string}
+                    macAddress: {type: string}
+                required:
+                    - ipAddress
+                    - ipType
+        required:
+            - partnerId
+            - appId
+            - channelId
+            - airlineId
+            - messageData
+            - securityContext
+    rxResHeader:
+        type: object
+        additionalProperties: false
+        properties:
+            partnerId:
+                type: string
+            appId:
+                type: string
+            channelId:
+                type: string
+            airlineId:
+                type: string
+            messageData:
+                type: object
+                additionalProperties: false
+                properties:
+                    timestamp: {type: string}
+                required:
+                    - timestamp
+            securityContext:
+                type: object
+                additionalProperties: false
+                properties:
+                    ipAddress: {type: string}
+                    ipType: {type: string}
+                    macAddress: {type: string}
+                required:
+                    - ipAddress
+                    - ipType
+                    - macAddress
+            transactionId:
+                type: string
+            responseTimestamp:
+                type: string
+            status:
+                type: string
+        required:
+            - partnerId
+            - appId
+            - channelId
+            - airlineId
+            - status
+            - responseTimestamp
+            - transactionId
+    rxResBody:
+        type: object
+        additionalProperties: false
+        properties:
+            rxResHeader:
+                $ref: '#/definitions/rxResHeader'
+            responseCode:
+                type: string
+            responseDescription:
+                type: string
+        required:
+            - responseCode
+            - responseDescription
+    rxResFail:
+        type: object
+        additionalProperties: false
+        properties:
+            rxResHeader:
+                $ref: '#/definitions/rxResHeader'
+            rxResData:
+                type: object
+                additionalProperties: false
+                properties:
+                    error: {type: object, additionalProperties: false, properties: {code: {type: string}, desc: {type: array, items: {type: object}}}}
+
