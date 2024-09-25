@@ -148,7 +148,7 @@ kind: System
 metadata:
   name: rx-digital-build
   tags:
-    - digital build
+    - digital-build
     - signup
 spec:
   owner: "DigitalBuildWS"
