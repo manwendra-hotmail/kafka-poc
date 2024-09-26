@@ -1,5 +1,5 @@
 apiVersion: backstage.io/v1alpha1
-kind: System
+kind: Component
 metadata:
   name: RX-Digital-Frontend
   description: "Skeleton of Profile Services"
@@ -15,26 +15,26 @@ metadata:
       title: RX Digital
       icon: web
 spec:
-  type: website
+  type: service
   lifecycle: nonproduction
   owner: "Integrationws"
   system: RX-Digital-Frontend
   dependsOn:
-    - system:default/rx-digital-bff
+    - component:default/rx-digital-bff
 
 ---
-#apiVersion: backstage.io/v1alpha1
-#kind: System
-#metadata:
-#  name: RX-Digital-Frontend
-#  tags:
-#    - rx-digital-frontend
-#    - travel
-#spec:
-#  owner: "Integrationws"
-#---
 apiVersion: backstage.io/v1alpha1
 kind: System
+metadata:
+  name: RX-Digital-Frontend
+  tags:
+    - rx-digital-frontend
+    - travel
+spec:
+  owner: "Integrationws"
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
 metadata:
   name: rx-digital-bff
   description: “Creation of the Profile”
@@ -54,16 +54,16 @@ spec:
     - component:default/rx-profile-services
 
 ---
-#apiVersion: backstage.io/v1alpha1
-#kind: System
-#metadata:
-#  name: RX-Digital-BFF
-#  tags:
-#    - rx-digital-bff-system
-#    - travel
-#spec:
-#  owner: "Integrationws"
-#---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: RX-Digital-BFF
+  tags:
+    - rx-digital-bff-system
+    - travel
+spec:
+  owner: "Integrationws"
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
@@ -217,4 +217,3 @@ metadata:
     - signup
 spec:
   owner: "DigitalBuildWS"
-
