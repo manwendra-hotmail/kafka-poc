@@ -1,0 +1,56 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: RX-Digital-Frontend
+  description: "Skeleton of Profile Services"
+  annotations:
+    backstage.io/kubernetes-id: rx-profile-services
+    backstage.io/source-location: url:https://github.com/IntegrationWS/rhdevhub.git
+    backstage.io/techdocs-ref: url:https://github.com/IntegrationWS/rhdevhub.git
+  tags:
+    - rx-digital-frontend
+    - travel
+  links:
+    - url: 'https://commercial-webapp-dev-commercial-webapp.apps.clstr02.dev.rx.int/'
+      title: RX Digital
+      icon: web
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "Integrationws"
+  system: rx-digital-frontend
+  dependsOn:
+    - resource:default/rx-digital-bff
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-digital-frontend
+  tags:
+    - rx-digital-frontend
+    - travel
+spec:
+  owner: "Integrationws"
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: rx-digital-bff
+  description: “Creation of the Profile”
+spec:
+  type: website
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-digital-bff-system
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-digital-bff-system
+  tags:
+    - rx-digital-bff-system
+    - travel
+spec:
+  owner: "Integrationws"
