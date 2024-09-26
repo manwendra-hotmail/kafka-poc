@@ -1,3 +1,14 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: business-profile-service
+  tags:
+    - rx-business-profile-service
+    - travel
+spec:
+  owner: "Integrationws"
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
@@ -18,20 +29,10 @@ spec:
   type: service
   lifecycle: nonproduction
   owner: "Integrationws"
-  system: RX-Digital-Frontend
+  system: business-profile-service
   dependsOn:
     - component:default/rx-digital-bff
 
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: RX-Digital-Frontend
-  tags:
-    - rx-digital-frontend
-    - travel
-spec:
-  owner: "Integrationws"
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -49,20 +50,11 @@ spec:
   type: website
   lifecycle: nonproduction
   owner: “Integrationws"
-  system: RX-Digital-BFF
+  system: business-profile-service
   dependsOn:
     - component:default/rx-profile-services
 
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: RX-Digital-BFF
-  tags:
-    - rx-digital-bff-system
-    - travel
-spec:
-  owner: "Integrationws"
+
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -103,7 +95,7 @@ spec:
   type: service
   lifecycle: nonproduction
   owner: "Integrationws"
-  system: rx-profile-services
+  system: business-profile-service
   dependsOn:
     - resource:default/artists-db
   dependencyOf:
@@ -126,7 +118,7 @@ spec:
   type: service
   lifecycle: nonproduction
   owner: "Integrationws"
-  system: rx-appconnect-orchestrator
+  system: business-profile-service
   providesApis:
     - rx-appconnect-orchestrator
   consumesApis:
@@ -136,26 +128,7 @@ spec:
     - rx-kafka-create-profile
     - rx-kafka-update-profile
 ---
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: rx-profile-services
-  tags:
-    - rx-profile-services
-    - travel
-spec:
-  owner: "Integrationws"
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: rx-appconnect-orchestrator
-  tags:
-    - appconnect
-    - travel
-spec:
-  owner: "Integrationws"
----
+
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
@@ -165,7 +138,7 @@ spec:
   type: openapi
   lifecycle: nonproduction
   owner: “Integrationws"
-  system: rx-profile-services
+  system: rbusiness-profile-service
   definition:
     $text: ./openapi-create.yaml
 ---
@@ -178,7 +151,7 @@ spec:
   type: openapi
   lifecycle: nonproduction
   owner: “Integrationws"
-  system: rx-appconnect-orchestrator
+  system: business-profile-service
   definition:
     $text: ./openapi-appconnect-orchestrator.yaml
 ---
@@ -191,7 +164,7 @@ spec:
   type: openapi
   lifecycle: nonproduction
   owner: “Integrationws"
-  system: rx-profile-services
+  system: business-profile-service
   definition:
     $text: ./openapi.update.yaml
 ---
@@ -204,16 +177,7 @@ spec:
   type: openapi
   lifecycle: nonproduction
   owner: “Integrationws"
-  system: rx-profile-services
+  system: business-profile-service
   definition:
     $text: ./openapi.retreive.yaml
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: rx-digital-build
-  tags:
-    - digital-build
-    - signup
-spec:
-  owner: "DigitalBuildWS"
+
