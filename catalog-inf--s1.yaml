@@ -20,7 +20,7 @@ spec:
   owner: "Integrationws"
   system: RX-Digital-Frontend
   dependsOn:
-    - resource:default/rx-digital-bff
+    - component:default/rx-digital-bff
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -34,7 +34,7 @@ spec:
   owner: "Integrationws"
 ---
 apiVersion: backstage.io/v1alpha1
-kind: Resource
+kind: Component
 metadata:
   name: rx-digital-bff
   description: “Creation of the Profile”
