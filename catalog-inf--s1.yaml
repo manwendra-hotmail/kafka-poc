@@ -18,7 +18,7 @@ spec:
   type: service
   lifecycle: nonproduction
   owner: "Integrationws"
-  system: "RX Digital Frontend"
+  system: RX-Digital-Frontend
   dependsOn:
     - resource:default/rx-digital-bff
 
@@ -26,7 +26,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: "RX Digital Frontend"
+  name: RX-Digital-Frontend
   tags:
     - rx-digital-frontend
     - travel
@@ -42,13 +42,13 @@ spec:
   type: website
   lifecycle: nonproduction
   owner: “Integrationws"
-  system: rx-digital-bff-system
+  system: RX-Digital-BFF
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: rx-digital-bff-system
+  name: RX-Digital-BFF
   tags:
     - rx-digital-bff-system
     - travel
