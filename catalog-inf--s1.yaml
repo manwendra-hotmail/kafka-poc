@@ -59,7 +59,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-profile-services
+  name: rx-api-connect-profile-services
   description: "Skeleton of Profile Services"
   annotations:
     #argocd/app-selector: rht-gitops.com/janus-argocd=rx-digital-build-bootstrap
