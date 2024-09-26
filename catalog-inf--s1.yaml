@@ -61,13 +61,30 @@ metadata:
   name: rx-cs-etg
   description: “Call sign etg”
   links:
-    - url: https://app-mte-ra-pilot-a.s10-mtecpeuw1.poc.callsign.com/
+    - url: https://b2b-mte-ra-pilot-a.s10-mtecpeuw1.poc.callsign.com
       title: INFRAWS
       icon: web
 spec:
   type: website
   lifecycle: nonproduction
-  owner: “Integrationws"
+  owner: “InfraWS"
+  system: business-profile-service
+  subcomponentOf: component:default/rx-digital-bff
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-cs-auth
+  description: “Call sign auth”
+  links:
+    - url: https://app-mte-ra-pilot-a.s10-mtecpeuw1.poc.callsign.com 
+      title: INFRAWS
+      icon: web
+spec:
+  type: website
+  lifecycle: nonproduction
+  owner: “InfraWS"
   system: business-profile-service
   subcomponentOf: component:default/rx-digital-bff
 
