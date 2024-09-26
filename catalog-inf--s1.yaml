@@ -50,6 +50,8 @@ spec:
   lifecycle: nonproduction
   owner: “Integrationws"
   system: RX-Digital-BFF
+  dependsOn:
+    - component:default/rx-profile-services
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -61,5 +63,158 @@ metadata:
     - travel
 spec:
   owner: "Integrationws"
-
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-profile-services
+  description: "Skeleton of Profile Services"
+  annotations:
+    #argocd/app-selector: rht-gitops.com/janus-argocd=rx-digital-build-bootstrap
+    backstage.io/kubernetes-id: rx-profile-services
+    #janus-idp.io/tekton: rx-rx-profile-services
+    backstage.io/source-location: url:https://github.com/IntegrationWS/rhdevhub.git
+    backstage.io/techdocs-ref: url:https://github.com/IntegrationWS/rhdevhub.git
+    #gitlab.com/project-slug: development/rx-digital-build
+    #quay.io/repository-slug: "quayadmin/rx-digital-build"
+  tags:
+    - create-profile
+    - retreive-profile
+    - guest-360
+    - crm-api
+    - cdp-api
+  links:
+    - url: 'http://10.3.42.77/createprofile/'
+      title: Guest 360 Create profile
+      icon: web
+    - url: 'http://10.3.42.77/searchprofile/'
+      title: Guest 360 Create profile)
+      icon: web
+    - url: https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/
+      title: Event Streams
+      icon: web
+    - url: https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/design/integrations/cp4i/app-des/home
+      title: APP Connect Design
+      icon: web
+    - url: https://datapower-cp4i.apps.clstr02.dev.rx.int/dp/login.xml
+      title: Data Power
+      icon: web
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "Integrationws"
+  system: rx-profile-services
+  dependsOn:
+    - resource:default/artists-db
+  dependencyOf:
+    - component:default/artist-web-lookup
+  providesApis:
+    - rx-create-profile-api
+    - rx-update-profile-api
+    - rx-retreive-profile-api
+  consumesApis:
+    - rx-appconnect-orchestrator
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-appconnect-orchestrator
+  description: "Appconnect backend orchestrator"
+  tags:
+    - appconnect
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "Integrationws"
+  system: rx-appconnect-orchestrator
+  providesApis:
+    - rx-appconnect-orchestrator
+  consumesApis:
+    - rx-create-profile-api
+    - rx-update-profile-api
+    - rx-retreive-profile-api
+    - rx-kafka-create-profile
+    - rx-kafka-update-profile
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-profile-services
+  tags:
+    - rx-profile-services
+    - travel
+spec:
+  owner: "Integrationws"
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-appconnect-orchestrator
+  tags:
+    - appconnect
+    - travel
+spec:
+  owner: "Integrationws"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-create-profile-api
+  description: “Creation of the Profile”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-profile-services
+  definition:
+    $text: ./openapi-create.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-appconnect-orchestrator
+  description: “appconnect orchestrator”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-appconnect-orchestrator
+  definition:
+    $text: ./openapi-appconnect-orchestrator.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-update-profile-api
+  description: “Update of the Profile”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-profile-services
+  definition:
+    $text: ./openapi.update.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-retreive-profile-api
+  description: “Retreive of the Profile”
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: rx-profile-services
+  definition:
+    $text: ./openapi.retreive.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: rx-digital-build
+  tags:
+    - digital build
+    - signup
+spec:
+  owner: "DigitalBuildWS"
 
