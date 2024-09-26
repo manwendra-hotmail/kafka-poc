@@ -27,6 +27,7 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: RX-Digital-Frontend
+  domain: RX-Digital-Frontend
   tags:
     - rx-digital-frontend
     - travel
@@ -54,3 +55,16 @@ metadata:
     - travel
 spec:
   owner: "Integrationws"
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: RX-Digital-Frontend
+  description: Everything related to Digital Frontend
+  links:
+    - url: 'https://commercial-webapp-dev-commercial-webapp.apps.clstr02.dev.rx.int/'
+      title: Domain login
+      icon: web
+spec:
+  owner: Integrationws
