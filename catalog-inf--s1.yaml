@@ -38,6 +38,13 @@ kind: Resource
 metadata:
   name: rx-digital-bff
   description: “Creation of the Profile”
+  links:
+    - url: https://callsign-proxyserver-security.apps.clstr02.dev.rx.int/
+      title: DigitalWS
+      icon: web
+    - url: https://app-mte-ra-pilot-a.s10-mtecpeuw1.poc.callsign.com/
+      title: INFRAWS
+      icon: web
 spec:
   type: website
   lifecycle: nonproduction
