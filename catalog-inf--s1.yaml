@@ -110,10 +110,10 @@ metadata:
     - cdp-api
   links:
     - url: 'http://10.3.42.77/createprofile/'
-      title: Guest 360 Create profile
+      title: CDP Create profile
       icon: web
     - url: 'http://10.3.42.77/searchprofile/'
-      title: Guest 360 Create profile)
+      title: CDP Update
       icon: web
     - url: https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/
       title: Event Streams
@@ -296,3 +296,41 @@ spec:
   lifecycle: nonproduction
   system: business-profile-service
   owner: "Integrationws"
+
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-guest-360-profile
+  description: "Guest 360 create, update and retrieve"
+  tags:
+    - guest-360
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "DataWS"
+  system: business-profile-service
+  dependsOn:
+    - resource:default/cosmos-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: cosmos-db
+  description: “Cosmos database for create API”
+  links:
+    - url: 'http://profile.rxdataplatform.int/create_profile/'
+      title: Guest 360 create
+      icon: web
+    - url: 'http://profile.rxdataplatform.int/user_profile/'
+      title: Guest 360 update
+      icon: web
+    - url: 'http://profile.rxdataplatform.int/user_profile/'
+      title: Guest 360 retrieve
+      icon: web
+spec:
+  type: database
+  lifecycle: nonproduction
+  owner: “DataWS"
+  system: business-profile-service
