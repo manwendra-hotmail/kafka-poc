@@ -214,3 +214,64 @@ spec:
   definition:
     $text: ./openapi.retreive.yaml
 
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-integration-kafka-stream
+  description: "kafka update profile"
+  tags:
+    - update profile
+  links:
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
+      title: kafka topic to create profile
+      icon: web
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.UPDATEPROFILE.PROVIDER/messages'
+      title: kafka topic to update profile
+      icon: web
+spec:
+  type: website
+  lifecycle: nonproduction
+  system: business-profile-service
+  owner: "Integrationws"
+  dependsOn:
+    - component:rx-profile-services
+  consumesApis:
+    - rx-kafka-adapter
+  providesApis:
+    - rx-kafka-create-profile
+    - rx-kafka-update-profile
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-kafka-create-profile
+  description: “api for create profile in kafka”
+  links:
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
+      title: kafka create profile link
+      icon: web
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: business-profile-service
+  definition:
+    $text: ./openapi-create.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rx-kafka-update-profile
+  description: “api for update profile in kafka”
+  links:
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.UPDATEPROFILE.PROVIDER/messages'
+      title: kafka update profile link
+      icon: web
+spec:
+  type: openapi
+  lifecycle: nonproduction
+  owner: “Integrationws"
+  system: business-profile-service
+  definition:
+    $text: ./openapi-create.yaml
