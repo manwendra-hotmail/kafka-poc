@@ -231,7 +231,7 @@ metadata:
       title: kafka topic to update profile
       icon: web
 spec:
-  type: kafka
+  type: service
   lifecycle: nonproduction
   system: business-profile-service
   owner: "Integrationws"
