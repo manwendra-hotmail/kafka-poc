@@ -134,9 +134,9 @@ spec:
   dependencyOf:
     - component:default/artist-web-lookup
   providesApis:
-    - rx-create-profile-api
-    - rx-update-profile-api
-    - rx-retreive-profile-api
+    - rx-apic-create-profile-api
+    - rx-apic-update-profile-api
+    - rx-apic-retreive-profile-api
   consumesApis:
     - rx-appconnect-orchestrator
 ---
@@ -155,9 +155,9 @@ spec:
   providesApis:
     - rx-appconnect-orchestrator
   consumesApis:
-    - rx-create-profile-api
-    - rx-update-profile-api
-    - rx-retreive-profile-api
+    - rx-apic-create-profile-api
+    - rx-apic-update-profile-api
+    - rx-apic-retreive-profile-api
     - rx-kafka-create-profile
     - rx-kafka-update-profile
 ---
@@ -165,7 +165,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: rx-create-profile-api
+  name: rx-apic-create-profile-api
   description: “Creation of the Profile”
 spec:
   type: openapi
@@ -191,7 +191,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: rx-update-profile-api
+  name: rx-apic-update-profile-api
   description: “Update of the Profile”
 spec:
   type: openapi
@@ -204,7 +204,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: rx-retreive-profile-api
+  name: rx-apic-retreive-profile-api
   description: “Retreive of the Profile”
 spec:
   type: openapi
