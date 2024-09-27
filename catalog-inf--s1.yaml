@@ -221,7 +221,7 @@ metadata:
   name: rx-integration-kafka-stream
   description: "kafka update profile"
   tags:
-    - update profile
+    - update-profile
   links:
     - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
       title: kafka topic to create profile
@@ -235,9 +235,8 @@ spec:
   system: business-profile-service
   owner: "Integrationws"
   dependsOn:
-    - component:rx-profile-services
-  consumesApis:
-    - rx-kafka-adapter
+    - component:rx-appconnect-orchestrator
+    - component:rx-kafka-adaptor
   providesApis:
     - rx-kafka-create-profile
     - rx-kafka-update-profile
@@ -275,3 +274,24 @@ spec:
   system: business-profile-service
   definition:
     $text: ./openapi-create.yaml
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-kafka-adaptor
+  description: "kafka adaptor "
+  tags:
+    - kafka-adaptor
+  links:
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
+      title: TBD
+      icon: web
+    - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.UPDATEPROFILE.PROVIDER/messages'
+      title: TBD
+      icon: web
+spec:
+  type: service
+  lifecycle: nonproduction
+  system: business-profile-service
+  owner: "Integrationws"
