@@ -153,11 +153,10 @@ spec:
   owner: "Integrationws"
   system: business-profile-service
   providesApis:
-    - rx-appconnect-orchestrator
-  consumesApis:
     - rx-apic-create-profile-api
     - rx-apic-update-profile-api
     - rx-apic-retreive-profile-api
+  consumesApis:
     - rx-kafka-create-profile
     - rx-kafka-update-profile
 ---
