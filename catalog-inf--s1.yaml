@@ -218,10 +218,11 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-integration-kafka-stream
+  name: rx-integration-event-stream
   description: "kafka update profile"
   tags:
     - update-profile
+    - create-profile
   links:
     - url: 'https://cpd-cp4i.apps.clstr02.dev.rx.int/integration/kafka-clusters/cp4i/es/topics/RX.PROFILESERVICES.CREATEPROFILE.PROVIDER/messages'
       title: kafka topic to create profile
@@ -230,7 +231,7 @@ metadata:
       title: kafka topic to update profile
       icon: web
 spec:
-  type: website
+  type: kafka
   lifecycle: nonproduction
   system: business-profile-service
   owner: "Integrationws"
