@@ -333,3 +333,35 @@ spec:
   lifecycle: nonproduction
   owner: “DataWS"
   system: business-profile-service
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-mq-create-update-profile-crm
+  description: "MQ-create-update-profile-crm"
+  tags:
+    - mq-crm
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "integrationWS"
+  system: business-profile-service
+  dependsOn:
+    - component:default/rx-kafka-adaptor
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rx-mq-create-update-profile-cdp
+  description: "MQ-create-update-profile-cdp"
+  tags:
+    - mq-cdp
+spec:
+  type: service
+  lifecycle: nonproduction
+  owner: "integrationWS"
+  system: business-profile-service
+  dependsOn:
+    - component:default/rx-kafka-adaptor
