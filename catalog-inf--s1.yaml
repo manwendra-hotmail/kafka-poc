@@ -3,27 +3,29 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: business-profile-service
+  description: "Skeleton of End to End Profile Services"
   tags:
     - rx-business-profile-service
     - travel
 spec:
-  owner: "Integrationws"
+  owner: "cross workstream(ws)"
+  domain: "commercial workstream"
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: RX-Digital-Frontend
-  description: "Skeleton of Profile Services"
+  name: 1-rx-digital-frontend
+  description: "User via web requests for Profile Services"
   annotations:
     backstage.io/kubernetes-id: rx-profile-services
     backstage.io/source-location: url:https://github.com/IntegrationWS/rhdevhub.git
     backstage.io/techdocs-ref: url:https://github.com/IntegrationWS/rhdevhub.git
   tags:
-    - rx-digital-frontend
+    - 1-rx-digital-frontend
     - travel
   links:
     - url: 'https://commercial-webapp-dev-commercial-webapp.apps.clstr02.dev.rx.int/'
-      title: RX Digital
+      title: rx digital
       icon: web
 spec:
   type: service
@@ -31,14 +33,13 @@ spec:
   owner: "Integrationws"
   system: business-profile-service
   dependsOn:
-    - component:default/rx-digital-bff
-
+    - component:default/2-rx-digital-bff
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-digital-bff
-  description: “Creation of the Profile”
+  name: 2-rx-digital-bff
+  description: “Creation of User Profile via Call Sign”
   links:
     - url: https://callsign-proxyserver-security.apps.clstr02.dev.rx.int/
       title: DigitalWS
@@ -53,12 +54,11 @@ spec:
   system: business-profile-service
   dependsOn:
     - component:default/rx-profile-services
-
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-cs-etg
+  name: 2a-rx-cs-etg
   description: “Call sign etg”
   links:
     - url: https://b2b-mte-ra-pilot-a.s10-mtecpeuw1.poc.callsign.com
@@ -69,13 +69,12 @@ spec:
   lifecycle: nonproduction
   owner: “InfraWS"
   system: business-profile-service
-  subcomponentOf: component:default/rx-digital-bff
-
+  subcomponentOf: component:default/2-rx-digital-bff
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-cs-auth
+  name: 2b-rx-cs-auth
   description: “Call sign auth”
   links:
     - url: https://app-mte-ra-pilot-a.s10-mtecpeuw1.poc.callsign.com 
@@ -86,14 +85,15 @@ spec:
   lifecycle: nonproduction
   owner: “InfraWS"
   system: business-profile-service
-  subcomponentOf: component:default/rx-digital-bff
-
+  dependsOn:
+    - component:3-rx-api-connect-profile-services
+  subcomponentOf: component:default/2-rx-digital-bff
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-api-connect-profile-services
-  description: "Skeleton of Profile Services"
+  name: 3-rx-api-connect-profile-services
+  description: "API Connect Profile Services for Create, Retreive and Update"
   annotations:
     #argocd/app-selector: rht-gitops.com/janus-argocd=rx-digital-build-bootstrap
     backstage.io/kubernetes-id: rx-profile-services
@@ -143,7 +143,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-appconnect-orchestrator
+  name: 4-rx-appconnect-orchestrator
   description: "Appconnect backend orchestrator"
   tags:
     - appconnect
@@ -160,7 +160,6 @@ spec:
     - rx-kafka-create-profile
     - rx-kafka-update-profile
 ---
-
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
@@ -170,7 +169,7 @@ spec:
   type: openapi
   lifecycle: nonproduction
   owner: “Integrationws"
-  system: rbusiness-profile-service
+  system: business-profile-service
   definition:
     $text: ./openapi-create.yaml
 ---
@@ -178,7 +177,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: rx-appconnect-orchestrator
-  description: “appconnect orchestrator”
+  description: “appconnect orchestrator for create, retreive and update”
 spec:
   type: openapi
   lifecycle: nonproduction
@@ -217,7 +216,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-integration-event-stream
+  name: 5-rx-integration-event-stream
   description: "kafka update profile"
   tags:
     - update-profile
@@ -235,8 +234,8 @@ spec:
   system: business-profile-service
   owner: "Integrationws"
   dependsOn:
-    - component:rx-appconnect-orchestrator
-    - component:rx-kafka-adaptor
+    - component:4-rx-appconnect-orchestrator
+    - component:6-rx-kafka-adaptor
   providesApis:
     - rx-kafka-create-profile
     - rx-kafka-update-profile
@@ -279,7 +278,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-kafka-adaptor
+  name: 6-rx-kafka-adaptor
   description: "kafka adaptor "
   tags:
     - kafka-adaptor
@@ -295,13 +294,11 @@ spec:
   lifecycle: nonproduction
   system: business-profile-service
   owner: "Integrationws"
-
-
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-guest-360-profile
+  name: 4a-rx-guest-360-profile
   description: "Guest 360 create, update and retrieve"
   tags:
     - guest-360
@@ -338,7 +335,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-mq-create-update-profile-crm
+  name: 7a-rx-mq-create-update-profile-crm
   description: "MQ-create-update-profile-crm"
   tags:
     - mq-crm
@@ -348,13 +345,13 @@ spec:
   owner: "integrationWS"
   system: business-profile-service
   dependsOn:
-    - component:default/rx-kafka-adaptor
+    - component:default/6-rx-kafka-adaptor
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: rx-mq-create-update-profile-cdp
+  name: 7b-rx-mq-create-update-profile-cdp
   description: "MQ-create-update-profile-cdp"
   tags:
     - mq-cdp
@@ -364,4 +361,4 @@ spec:
   owner: "integrationWS"
   system: business-profile-service
   dependsOn:
-    - component:default/rx-kafka-adaptor
+    - component:default/6-rx-kafka-adaptor
