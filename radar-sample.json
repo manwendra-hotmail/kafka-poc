@@ -591,8 +591,8 @@
   ],
   "quadrants": [
     {
-      "id": "infrastructure-test",
-      "name": "Infrastructure"
+      "id": "infrastructure",
+      "name": "Infrastructure-test"
     },
     {
       "id": "frameworks",
