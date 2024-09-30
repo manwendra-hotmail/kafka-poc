@@ -472,7 +472,7 @@
       "key": "github-actions",
       "id": "github-actions",
       "title": "GitHub Actions",
-      "quadrant": "infrastructure"
+      "quadrant": "test-infrastructure"
     },
     {
       "timeline": [
@@ -491,7 +491,7 @@
       "key": "argocd",
       "id": "argocd",
       "title": "ArgoCD",
-      "quadrant": "infrastructure"
+      "quadrant": "test-infrastructure"
     },
     {
       "timeline": [
@@ -510,7 +510,7 @@
       "key": "openshift",
       "id": "openshift",
       "title": "Openshift 4+",
-      "quadrant": "infrastructure"
+      "quadrant": "test-infrastructure"
     },
     {
       "timeline": [
@@ -529,7 +529,7 @@
       "key": "vault",
       "id": "vault",
       "title": "Hashicorp Vault",
-      "quadrant": "infrastructure"
+      "quadrant": "test-infrastructure"
     },
     {
       "timeline": [
@@ -548,7 +548,7 @@
       "key": "tekton",
       "id": "tekton",
       "title": "Tekton",
-      "quadrant": "infrastructure"
+      "quadrant": "test-infrastructure"
     },
     {
       "timeline": [
@@ -567,7 +567,7 @@
       "key": "jenkins",
       "id": "jenkins",
       "title": "Jenkins",
-      "quadrant": "infrastructure"
+      "quadrant": "test-infrastructure"
     },
     {
       "timeline": [
@@ -586,13 +586,13 @@
       "key": "rosa",
       "id": "rosa",
       "title": "ROSA",
-      "quadrant": "infrastructure"
+      "quadrant": "test-infrastructure"
     }
   ],
   "quadrants": [
     {
-      "id": "infrastructure",
-      "name": "Infrastructure-test"
+      "id": "test-infrastructure",
+      "name": "test-infrastructure-test"
     },
     {
       "id": "frameworks",
